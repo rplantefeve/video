@@ -10,25 +10,27 @@ const options = {
   key: fs.readFileSync('certification/private.key')
   
 };
-
+  
 const https = require("https");
 const server = https.createServer(options,app);
 
 const io = require("socket.io")(server);
 
+
 app.get("/", (req,res) => {
   res.status(200).json({"message": "hw"})
 })
+
 app.use(express.static(__dirname + "/public"));
 try {
-  io.sockets.on("error", e => console.log(e));
-io.sockets.on("connection", socket => {
-  const clientIpAddress = socket.handshake.address; //adresse ip du client
-  console.log(`Client connected with IP address ${clientIpAddress}`); 
-  socket.on("broadcaster", () => {
-    broadcaster = socket.id;
-    socket.broadcast.emit("broadcaster");
-  });
+  io.sockets.on("error", e => log(e));
+  io.sockets.on("connection", socket => {
+    const clientIpAddress = socket.handshake.address; //adresse ip du client
+    log(`Client connected with IP address ${clientIpAddress}`); 
+    socket.on("broadcaster", () => {
+      broadcaster = socket.id;
+      socket.broadcast.emit("broadcaster");
+    });
 
   socket.on("ip", () => {
     socket.to(id).emit("ip", clientIpAddress);
@@ -53,16 +55,21 @@ io.sockets.on("connection", socket => {
     socket.to(broadcaster).emit("disconnectPeer", socket.id);
   });
 });
-server.listen(port, () => console.log(`Server is running on port ${port}`));
+server.listen(port, () => log(`Server is running on port ${port}`));
   
 } catch (error) {
   log(error.stack);
 
 }
 
-function log(message)
-{
-  // date = message
-  //console.log
-  // fs.write 
+function log(error)
+{ 
+
+  const now = new Date();
+  const logString = `${now.toLocaleString()}: ${error}\n`;
+  fs.appendFile('error.log', logString, (err) => {
+    if (err) {
+      console.error(`Erreur lors de l'enregistrement du fichier de log : ${err}`);
+    }
+  });
 }
