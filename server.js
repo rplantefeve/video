@@ -4,7 +4,7 @@ const server = require("http").Server(app);
 const io = require('socket.io')(server);
 
 app.set("view engine","ejs");
-app.use(express.static("public"), express.static("node_modules"));
+//app.use(express.static("public"), express.static("node_modules"));
 
 // app.use('/scripts', express.static(__dirname + '/node_modules/bootstrap/dist/'));
 

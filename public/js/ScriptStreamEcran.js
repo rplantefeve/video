@@ -9,11 +9,12 @@ document.querySelector('#start-stream').addEventListener('click',async function 
         console.error(err);
     }
 })
+/*
 const socket = io("/");
 
-socket.emit('join-room',ROOM_ID,1);
+socket.emit('join-room', ROOM_ID, 1);
 
-socket.on('user-connected',(userId)=>{
-    console.log(userId)
+socket.on('user-connected', userId => {
+  console.log(userId);
 });
-
+*/
