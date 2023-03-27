@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const fs = require('fs');
 
-let broadcaster;
+let broadcaster = '';
 const port = 443;
 
 const options = {
@@ -26,10 +26,13 @@ try {
   io.sockets.on("error", e => log(e));
   io.sockets.on("connection", socket => {
     const clientIpAddress = socket.handshake.address; //adresse ip du client
-    log(`Client connected with IP address ${clientIpAddress}`); 
+    Personne(clientIpAddress); 
     socket.on("broadcaster", () => {
-      broadcaster = socket.id;
-      socket.broadcast.emit("broadcaster");
+      if(socket.id !== broadcaster){
+        broadcaster = socket.id;
+        socket.broadcast.emit("broadcaster");
+      }
+      
     });
 
   socket.on("ip", () => {
@@ -68,6 +71,17 @@ function log(error)
   const now = new Date();
   const logString = `${now.toLocaleString()}: ${error}\n`;
   fs.appendFile('error.log', logString, (err) => {
+    if (err) {
+      console.error(`Erreur lors de l'enregistrement du fichier de log : ${err}`);
+    }
+  });
+}
+function Personne(adr)
+{ 
+
+  const now = new Date();
+  const logString = `${now.toLocaleString()}: ${adr}\n`;
+  fs.appendFile('personne.txt', logString, (err) => {
     if (err) {
       console.error(`Erreur lors de l'enregistrement du fichier de log : ${err}`);
     }

@@ -1,16 +1,5 @@
 const peerConnections = {};
-const config = {
-  iceServers: [
-    { 
-      "urls": "stun:stun.l.google.com:19302",
-    },
-    // { 
-    //   "urls": "turn:TURN_IP?transport=tcp",
-    //   "username": "TURN_USERNAME",
-    //   "credential": "TURN_CREDENTIALS"
-    // }
-  ]
-};
+
 
 const socket = io.connect(window.location.origin);
 
@@ -20,7 +9,7 @@ socket.on("answer", (id, description) => {
 });
 
 socket.on("watcher", id => {
-  const peerConnection = new RTCPeerConnection(config);
+  const peerConnection = new RTCPeerConnection();
   peerConnections[id] = peerConnection;
   console.log("socket reçoit watcher broadcast");
   let stream = videoElement.srcObject;
