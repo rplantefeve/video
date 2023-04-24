@@ -28,16 +28,16 @@ try {
     const clientIpAddress = socket.handshake.address; //adresse ip du client
     Personne(clientIpAddress); 
     socket.on("broadcaster", () => {
-      if(socket.id !== broadcaster){
+  
         broadcaster = socket.id;
         socket.broadcast.emit("broadcaster");
-      }
+      
       
     });
 
   socket.on("ip", () => {
     socket.to(id).emit("ip", clientIpAddress);
-  })
+  });
   socket.on("watcher", () => {
     socket.to(broadcaster).emit("watcher", socket.id);
   });
@@ -60,6 +60,10 @@ try {
 });
 server.listen(port, () => log(`Server is running on port ${port}`));
   
+
+
+
+
 } catch (error) {
   log(error.stack);
 
