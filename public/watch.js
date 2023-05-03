@@ -71,8 +71,16 @@ socket.on("broadcaster", () => {
   
 });
 
+socket.on("disconnectPeer", () => {
+  console.log("déconnecter");
+  socket.close();
+  peerConnection.close();
+  newVideo.remove();
+});
+
 window.onunload = window.onbeforeunload = () => {
   socket.close();
   peerConnection.close();
+  newVideo.remove();
   
 };

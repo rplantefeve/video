@@ -54,7 +54,8 @@ try {
     socket.to(id).emit("candidate", socket.id, message);
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnectPeer", () => {
+    //socket.disconnect();
     socket.to(broadcaster).emit("disconnectPeer", socket.id);
   });
 });
