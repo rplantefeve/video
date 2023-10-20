@@ -24,7 +24,8 @@ try {
   io.sockets.on("error", (e) => log(e));
   io.sockets.on("connection", (socket) => {
     const clientIpAddress = socket.handshake.address; //adresse ip du client
-    Personne(clientIpAddress);
+    Personne(clientIpAddress, socket.id);
+
     socket.on("broadcaster", () => {
       broadcaster = socket.id;
       socket.broadcast.emit("broadcaster");
@@ -70,9 +71,9 @@ function log(error) {
     }
   });
 }
-function Personne(adr) {
+function Personne(adr, socketId) {
   const now = new Date();
-  const logString = `${now.toLocaleString()}: ${adr}\n`;
+  const logString = `${now.toLocaleString()}: ${adr} (socketId: ${socketId})\n`;
   fs.appendFile("personne.txt", logString, (err) => {
     if (err) {
       console.error(

@@ -3,13 +3,65 @@ html {
   height: 100%;
 }
 
-.video-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
 
+.videos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Styles pour la vidéo */
 video {
-  width: 700px;
-  height: 500px;
+  width: 100%;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+}
+
+.status {
+  font-size: 18px;
+  color: #333;
+  margin: 10px;
+}
+
+button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #2674a2;
+}
+
+.play-pause-button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.play-pause-button.playing {
+  background-color: #e74c3c; /* Couleur différente lorsque la lecture est en cours */
+}
+
+.playing {
+  color: #27ae60;
+}
+
+/* Styles pour les messages d'erreur (à afficher en cas de problème) */
+#error-message {
+  color: #ff0000;
+  font-size: 16px;
 }

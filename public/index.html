@@ -6,12 +6,11 @@
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="videos-container"></div>
+    <div id="videos-container">
+      <p id="status" class="status">En attente de connexion...</p>
+      <button id="play-pause-button" class="play-pause-button" disabled>Lecture</button>
+    </div>
 
-    <button id="bouton" onclick="document.getElementById('video').play()">
-      bouton
-    </button>
-    <!-- <button id="voirSocket">Socket</button> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/watch.js"></script>
   </body>

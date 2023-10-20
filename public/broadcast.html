@@ -6,8 +6,10 @@
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <button id="bouton">stream</button>
+    <button id="bouton">Démarrer la diffusion</button>
     <video playsinline autoplay muted></video>
+    <p id="status">État : Attente</p>
+    <p id="error-message" style="color: red;"></p>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/broadcast.js"></script>
   </body>
